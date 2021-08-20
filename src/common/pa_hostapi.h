@@ -322,6 +322,8 @@ typedef struct PaUtilHostApiRepresentation {
                                   const PaStreamParameters *inputParameters,
                                   const PaStreamParameters *outputParameters,
                                   double sampleRate );
+
+    PaError (*RefreshDevices)( struct PaUtilHostApiRepresentation *hostApi, PaHostApiIndex index );
 } PaUtilHostApiRepresentation;
 
 

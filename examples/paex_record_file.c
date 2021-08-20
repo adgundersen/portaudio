@@ -258,7 +258,6 @@ static int recordCallback( const void *inputBuffer, void *outputBuffer,
 
     data->frameIndex += PaUtil_WriteRingBuffer(&data->ringBuffer, rptr, elementsToWrite);
 
-    return paContinue;
 }
 
 /* This routine will be called by the PortAudio engine when audio is needed.
@@ -272,8 +271,11 @@ static int playCallback( const void *inputBuffer, void *outputBuffer,
                          void *userData )
 {
     paTestData *data = (paTestData*)userData;
+
     ring_buffer_size_t elementsToPlay = PaUtil_GetRingBufferReadAvailable(&data->ringBuffer);
-    ring_buffer_size_t elementsToRead = rbs_min(elementsToPlay, (ring_buffer_size_t)(framesPerBuffer * NUM_CHANNELS));
+
+    ring_buffer_size_t elementsToRead = rbs_min( elementsToPlay, 
+                                                 (ring_buffer_size_t)(framesPerBuffer * NUM_CHANNELS) );
     SAMPLE* wptr = (SAMPLE*)outputBuffer;
 
     (void) inputBuffer; /* Prevent unused variable warnings. */

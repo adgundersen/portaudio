@@ -154,6 +154,7 @@ int main(void)
     if( err != paNoError ) goto error;
 
     printf("Play for %d seconds.\n", NUM_SECONDS );
+
     Pa_Sleep( NUM_SECONDS * 1000 );
 
     err = Pa_StopStream( stream );
