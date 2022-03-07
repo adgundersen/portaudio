@@ -60,3 +60,14 @@ Please feel free to join. See http://www.portaudio.com for details.
     test/patest_sine.c     = output a sine wave in a simple PA app
     test/patest_sync.c     = test synchronization of audio and video
     test/patest_wire.c     = pass input to output, wire simulator
+
+## Crimata NodeAudio
+
+The default build of PortAudio sets an absolute install path (rpath?) which causes issues if you want to package the .dylib in a project.  To fix this, use install_name_tool to rename the binary:
+
+    install_name_tool -id "@loader_path/libportaudio.dylib" libportaudio.dylib
+
+Ideally, this would be set in the build config settings of PortAudio, but I haven't figured out how to do that yet.
+
+
+
