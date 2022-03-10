@@ -63,11 +63,25 @@ Please feel free to join. See http://www.portaudio.com for details.
 
 ## Crimata NodeAudio
 
-The default build of PortAudio sets an absolute install path (rpath?) which causes issues if you want to package the .dylib in a project.  To fix this, use install_name_tool to rename the binary:
+Build portaudio:
+
+    ./configure and make
+
+At the time of writing (MacOS 12.1) I initially received build errors (-WError) about unused variables, so I had to remove -WError flag from the build rules.
+
+Anytime the build configuration changes, make sure to run (see PortAudio docs):
+
+    autoreconf -if
+
+Use find command in usr/local/lib to see install state:
+
+    find /usr/local/lib -name "libport*" -maxdepth 1
+
+The default build of PortAudio sets an absolute install path (usr/local/lib) which causes issues if you want to package the .dylib in a project.  To fix this, use install_name_tool to rename the binary using a relative @loader_path:
 
     install_name_tool -id "@loader_path/libportaudio.dylib" libportaudio.dylib
 
 Ideally, this would be set in the build config settings of PortAudio, but I haven't figured out how to do that yet.
 
-
-
+TODO: Sign on build
+Of course, any binary (e.g. libportaudio.dylib) must be signed before distribution.
