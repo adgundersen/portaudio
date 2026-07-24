@@ -61,7 +61,7 @@ Please feel free to join. See http://www.portaudio.com for details.
     test/patest_sync.c     = test synchronization of audio and video
     test/patest_wire.c     = pass input to output, wire simulator
 
-## Crimata NodeAudio
+## NodeAudio
 
 Build portaudio:
 
