@@ -1,5 +1,7 @@
 # PortAudio - portable audio I/O library
 
+This is a fork of PortAudio that adds `Pa_RefreshDevice` functionality (see commit `1f01a3ddc05df7ee3bb3cad5ef960d335aff018b`), which allows runtime detection of audio device changes without restarting your application.
+
 PortAudio is a portable audio I/O library designed for cross-platform
 support of audio. It uses either a callback mechanism to request audio 
 processing, or blocking read/write calls to buffer data between the 
@@ -61,7 +63,11 @@ Please feel free to join. See http://www.portaudio.com for details.
     test/patest_sync.c     = test synchronization of audio and video
     test/patest_wire.c     = pass input to output, wire simulator
 
-## NodeAudio
+## Using with Node.js
+
+This fork can be used with the [nodeaudio](https://andrewgundersen.net/repos/nodeaudio) Node.js bindings, which provide native audio I/O capabilities to JavaScript/TypeScript applications.
+
+### Building PortAudio
 
 Build portaudio:
 
@@ -82,6 +88,16 @@ The default build of PortAudio sets an absolute install path (usr/local/lib) whi
     install_name_tool -id "@loader_path/libportaudio.dylib" libportaudio.dylib
 
 Ideally, this would be set in the build config settings of PortAudio, but I haven't figured out how to do that yet.
+
+### Using with nodeaudio
+
+The [nodeaudio](https://andrewgundersen.net/repos/nodeaudio) bindings wrap this PortAudio fork to expose audio I/O capabilities to Node.js applications. Clone and build the nodeaudio project to get started:
+
+    git clone https://andrewgundersen.net/repos/nodeaudio
+    cd nodeaudio
+    node-gyp rebuild
+
+This will link against the PortAudio library you've built, allowing you to use audio functionality from JavaScript.
 
 TODO: Sign on build
 Of course, any binary (e.g. libportaudio.dylib) must be signed before distribution.
